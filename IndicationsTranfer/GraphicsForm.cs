@@ -23,6 +23,7 @@ namespace IndicationsTranfer
             InitializeComponent();
             this.filePath = filePath;
             points = FileParser.Parse(filePath);
+            indicators = new bool[16];
         }
 
         private void GraphicsBuild_Button_Click(object sender, EventArgs e)
@@ -49,21 +50,27 @@ namespace IndicationsTranfer
 
             for (int i = 0; i < 16; i++)
             {
-                IndicatorsChart.Series.Add(i.ToString());
-                IndicatorsChart.Series[i.ToString()].ChartType = SeriesChartType.Line;
+                if (indicators[i])
+                {
+                    IndicatorsChart.Series.Add(i.ToString());
+                    IndicatorsChart.Series[i.ToString()].ChartType = SeriesChartType.Line;
+                }
             }
 
             for (int i = 0; i < 16; i++)
             {
-                for (int j = 0; j < points.Item1.Count; j++)
+                if (indicators[i])
                 {
-                    DateTime dateTime = points.Item1[j];
-
-                    if (dateFrom <= dateTime && dateTime <= dateTo)
+                    for (int j = 0; j < points.Item1.Count; j++)
                     {
-                        double temperatureValue = points.Item2[i][j];
+                        DateTime dateTime = points.Item1[j];
 
-                        IndicatorsChart.Series[i.ToString()].Points.AddXY(dateTime, temperatureValue);
+                        if (dateFrom <= dateTime && dateTime <= dateTo)
+                        {
+                            double temperatureValue = points.Item2[i][j];
+
+                            IndicatorsChart.Series[i.ToString()].Points.AddXY(dateTime, temperatureValue);
+                        }
                     }
                 }
             }
@@ -86,9 +93,9 @@ namespace IndicationsTranfer
             int secondFrom = Convert.ToInt32(timeFrom[2]);
 
 
-            int yearTo = Convert.ToInt32(dateFrom[2]);
-            int monthTo = Convert.ToInt32(dateFrom[1]);
-            int dayTo = Convert.ToInt32(dateFrom[0]);
+            int yearTo = Convert.ToInt32(dateTo[2]);
+            int monthTo = Convert.ToInt32(dateTo[1]);
+            int dayTo = Convert.ToInt32(dateTo[0]);
 
             int hourTo = Convert.ToInt32(timeTo[0]);
             int minuteTo = Convert.ToInt32(timeTo[1]);
@@ -104,6 +111,86 @@ namespace IndicationsTranfer
         {
             DateFrom.Text = "  ,  ,       :  :";
             DateTo.Text = "  ,  ,       :  :";
+        }
+
+        private void ind1_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[0] = ind1.Checked;
+        }
+
+        private void ind2_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[1] = ind2.Checked;
+        }
+
+        private void ind3_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[2] = ind3.Checked;
+        }
+
+        private void ind4_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[3] = ind4.Checked;
+        }
+
+        private void ind5_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[4] = ind5.Checked;
+        }
+
+        private void ind6_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[5] = ind6.Checked;
+        }
+
+        private void ind7_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[6] = ind7.Checked;
+        }
+
+        private void ind8_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[7] = ind8.Checked;
+        }
+
+        private void ind9_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[8] = ind9.Checked;
+        }
+
+        private void ind10_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[9] = ind10.Checked;
+        }
+
+        private void ind11_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[10] = ind11.Checked;
+        }
+
+        private void ind12_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[11] = ind12.Checked;
+        }
+
+        private void ind13_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[12] = ind13.Checked;
+        }
+
+        private void ind14_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[13] = ind14.Checked;
+        }
+
+        private void ind15_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[14] = ind15.Checked;
+        }
+
+        private void ind16_CheckedChanged(object sender, EventArgs e)
+        {
+            indicators[15] = ind16.Checked;
         }
     }
 }

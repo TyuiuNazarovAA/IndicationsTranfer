@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             IndicatorsChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             label1 = new Label();
             GraphicsBuild_Button = new Button();
@@ -39,39 +39,39 @@
             DateFrom = new MaskedTextBox();
             DateTo = new MaskedTextBox();
             ResetDateRange_Button = new Button();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
-            checkBox3 = new CheckBox();
-            checkBox4 = new CheckBox();
-            checkBox5 = new CheckBox();
-            checkBox6 = new CheckBox();
-            checkBox7 = new CheckBox();
-            checkBox8 = new CheckBox();
-            checkBox9 = new CheckBox();
-            checkBox10 = new CheckBox();
-            checkBox11 = new CheckBox();
-            checkBox12 = new CheckBox();
-            checkBox13 = new CheckBox();
-            checkBox14 = new CheckBox();
-            checkBox15 = new CheckBox();
-            checkBox16 = new CheckBox();
+            ind1 = new CheckBox();
+            ind2 = new CheckBox();
+            ind3 = new CheckBox();
+            ind4 = new CheckBox();
+            ind5 = new CheckBox();
+            ind6 = new CheckBox();
+            ind7 = new CheckBox();
+            ind8 = new CheckBox();
+            ind9 = new CheckBox();
+            ind13 = new CheckBox();
+            ind10 = new CheckBox();
+            ind14 = new CheckBox();
+            ind11 = new CheckBox();
+            ind15 = new CheckBox();
+            ind12 = new CheckBox();
+            ind16 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)IndicatorsChart).BeginInit();
             SuspendLayout();
             // 
             // IndicatorsChart
             // 
-            chartArea2.Name = "ChartArea1";
-            IndicatorsChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            IndicatorsChart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            IndicatorsChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            IndicatorsChart.Legends.Add(legend1);
             IndicatorsChart.Location = new Point(12, 165);
             IndicatorsChart.Name = "IndicatorsChart";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            IndicatorsChart.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            IndicatorsChart.Series.Add(series1);
             IndicatorsChart.Size = new Size(979, 366);
             IndicatorsChart.TabIndex = 0;
             IndicatorsChart.Text = "chart1";
@@ -87,6 +87,7 @@
             // 
             // GraphicsBuild_Button
             // 
+            GraphicsBuild_Button.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             GraphicsBuild_Button.Location = new Point(771, 39);
             GraphicsBuild_Button.Name = "GraphicsBuild_Button";
             GraphicsBuild_Button.Size = new Size(192, 57);
@@ -139,187 +140,203 @@
             ResetDateRange_Button.UseVisualStyleBackColor = true;
             ResetDateRange_Button.Click += ResetDateRange_Button_Click;
             // 
-            // checkBox1
+            // ind1
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(1012, 39);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(56, 24);
-            checkBox1.TabIndex = 7;
-            checkBox1.Text = "№1";
-            checkBox1.UseVisualStyleBackColor = true;
+            ind1.AutoSize = true;
+            ind1.Location = new Point(1012, 39);
+            ind1.Name = "ind1";
+            ind1.Size = new Size(56, 24);
+            ind1.TabIndex = 7;
+            ind1.Text = "№1";
+            ind1.UseVisualStyleBackColor = true;
+            ind1.CheckedChanged += ind1_CheckedChanged;
             // 
-            // checkBox2
+            // ind2
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(1012, 69);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(56, 24);
-            checkBox2.TabIndex = 7;
-            checkBox2.Text = "№2";
-            checkBox2.UseVisualStyleBackColor = true;
+            ind2.AutoSize = true;
+            ind2.Location = new Point(1012, 69);
+            ind2.Name = "ind2";
+            ind2.Size = new Size(56, 24);
+            ind2.TabIndex = 7;
+            ind2.Text = "№2";
+            ind2.UseVisualStyleBackColor = true;
+            ind2.CheckedChanged += ind2_CheckedChanged;
             // 
-            // checkBox3
+            // ind3
             // 
-            checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(1012, 99);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(56, 24);
-            checkBox3.TabIndex = 7;
-            checkBox3.Text = "№3";
-            checkBox3.UseVisualStyleBackColor = true;
+            ind3.AutoSize = true;
+            ind3.Location = new Point(1012, 99);
+            ind3.Name = "ind3";
+            ind3.Size = new Size(56, 24);
+            ind3.TabIndex = 7;
+            ind3.Text = "№3";
+            ind3.UseVisualStyleBackColor = true;
+            ind3.CheckedChanged += ind3_CheckedChanged;
             // 
-            // checkBox4
+            // ind4
             // 
-            checkBox4.AutoSize = true;
-            checkBox4.Location = new Point(1012, 129);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(56, 24);
-            checkBox4.TabIndex = 7;
-            checkBox4.Text = "№4";
-            checkBox4.UseVisualStyleBackColor = true;
+            ind4.AutoSize = true;
+            ind4.Location = new Point(1012, 129);
+            ind4.Name = "ind4";
+            ind4.Size = new Size(56, 24);
+            ind4.TabIndex = 7;
+            ind4.Text = "№4";
+            ind4.UseVisualStyleBackColor = true;
+            ind4.CheckedChanged += ind4_CheckedChanged;
             // 
-            // checkBox5
+            // ind5
             // 
-            checkBox5.AutoSize = true;
-            checkBox5.Location = new Point(1012, 159);
-            checkBox5.Name = "checkBox5";
-            checkBox5.Size = new Size(56, 24);
-            checkBox5.TabIndex = 7;
-            checkBox5.Text = "№5";
-            checkBox5.UseVisualStyleBackColor = true;
+            ind5.AutoSize = true;
+            ind5.Location = new Point(1012, 159);
+            ind5.Name = "ind5";
+            ind5.Size = new Size(56, 24);
+            ind5.TabIndex = 7;
+            ind5.Text = "№5";
+            ind5.UseVisualStyleBackColor = true;
+            ind5.CheckedChanged += ind5_CheckedChanged;
             // 
-            // checkBox6
+            // ind6
             // 
-            checkBox6.AutoSize = true;
-            checkBox6.Location = new Point(1012, 189);
-            checkBox6.Name = "checkBox6";
-            checkBox6.Size = new Size(56, 24);
-            checkBox6.TabIndex = 7;
-            checkBox6.Text = "№6";
-            checkBox6.UseVisualStyleBackColor = true;
+            ind6.AutoSize = true;
+            ind6.Location = new Point(1012, 189);
+            ind6.Name = "ind6";
+            ind6.Size = new Size(56, 24);
+            ind6.TabIndex = 7;
+            ind6.Text = "№6";
+            ind6.UseVisualStyleBackColor = true;
+            ind6.CheckedChanged += ind6_CheckedChanged;
             // 
-            // checkBox7
+            // ind7
             // 
-            checkBox7.AutoSize = true;
-            checkBox7.Location = new Point(1012, 219);
-            checkBox7.Name = "checkBox7";
-            checkBox7.Size = new Size(56, 24);
-            checkBox7.TabIndex = 7;
-            checkBox7.Text = "№7";
-            checkBox7.UseVisualStyleBackColor = true;
+            ind7.AutoSize = true;
+            ind7.Location = new Point(1012, 219);
+            ind7.Name = "ind7";
+            ind7.Size = new Size(56, 24);
+            ind7.TabIndex = 7;
+            ind7.Text = "№7";
+            ind7.UseVisualStyleBackColor = true;
+            ind7.CheckedChanged += ind7_CheckedChanged;
             // 
-            // checkBox8
+            // ind8
             // 
-            checkBox8.AutoSize = true;
-            checkBox8.Location = new Point(1012, 249);
-            checkBox8.Name = "checkBox8";
-            checkBox8.Size = new Size(56, 24);
-            checkBox8.TabIndex = 7;
-            checkBox8.Text = "№8";
-            checkBox8.UseVisualStyleBackColor = true;
+            ind8.AutoSize = true;
+            ind8.Location = new Point(1012, 249);
+            ind8.Name = "ind8";
+            ind8.Size = new Size(56, 24);
+            ind8.TabIndex = 7;
+            ind8.Text = "№8";
+            ind8.UseVisualStyleBackColor = true;
+            ind8.CheckedChanged += ind8_CheckedChanged;
             // 
-            // checkBox9
+            // ind9
             // 
-            checkBox9.AutoSize = true;
-            checkBox9.Location = new Point(1012, 281);
-            checkBox9.Name = "checkBox9";
-            checkBox9.Size = new Size(56, 24);
-            checkBox9.TabIndex = 7;
-            checkBox9.Text = "№9";
-            checkBox9.UseVisualStyleBackColor = true;
+            ind9.AutoSize = true;
+            ind9.Location = new Point(1012, 281);
+            ind9.Name = "ind9";
+            ind9.Size = new Size(56, 24);
+            ind9.TabIndex = 7;
+            ind9.Text = "№9";
+            ind9.UseVisualStyleBackColor = true;
+            ind9.CheckedChanged += ind9_CheckedChanged;
             // 
-            // checkBox10
+            // ind13
             // 
-            checkBox10.AutoSize = true;
-            checkBox10.Location = new Point(1012, 401);
-            checkBox10.Name = "checkBox10";
-            checkBox10.Size = new Size(64, 24);
-            checkBox10.TabIndex = 7;
-            checkBox10.Text = "№13";
-            checkBox10.UseVisualStyleBackColor = true;
+            ind13.AutoSize = true;
+            ind13.Location = new Point(1012, 401);
+            ind13.Name = "ind13";
+            ind13.Size = new Size(64, 24);
+            ind13.TabIndex = 7;
+            ind13.Text = "№13";
+            ind13.UseVisualStyleBackColor = true;
+            ind13.CheckedChanged += ind13_CheckedChanged;
             // 
-            // checkBox11
+            // ind10
             // 
-            checkBox11.AutoSize = true;
-            checkBox11.Location = new Point(1012, 311);
-            checkBox11.Name = "checkBox11";
-            checkBox11.Size = new Size(64, 24);
-            checkBox11.TabIndex = 7;
-            checkBox11.Text = "№10";
-            checkBox11.UseVisualStyleBackColor = true;
+            ind10.AutoSize = true;
+            ind10.Location = new Point(1012, 311);
+            ind10.Name = "ind10";
+            ind10.Size = new Size(64, 24);
+            ind10.TabIndex = 7;
+            ind10.Text = "№10";
+            ind10.UseVisualStyleBackColor = true;
+            ind10.CheckedChanged += ind10_CheckedChanged;
             // 
-            // checkBox12
+            // ind14
             // 
-            checkBox12.AutoSize = true;
-            checkBox12.Location = new Point(1012, 431);
-            checkBox12.Name = "checkBox12";
-            checkBox12.Size = new Size(64, 24);
-            checkBox12.TabIndex = 7;
-            checkBox12.Text = "№14";
-            checkBox12.UseVisualStyleBackColor = true;
+            ind14.AutoSize = true;
+            ind14.Location = new Point(1012, 431);
+            ind14.Name = "ind14";
+            ind14.Size = new Size(64, 24);
+            ind14.TabIndex = 7;
+            ind14.Text = "№14";
+            ind14.UseVisualStyleBackColor = true;
+            ind14.CheckedChanged += ind14_CheckedChanged;
             // 
-            // checkBox13
+            // ind11
             // 
-            checkBox13.AutoSize = true;
-            checkBox13.Location = new Point(1012, 341);
-            checkBox13.Name = "checkBox13";
-            checkBox13.Size = new Size(64, 24);
-            checkBox13.TabIndex = 7;
-            checkBox13.Text = "№11";
-            checkBox13.UseVisualStyleBackColor = true;
+            ind11.AutoSize = true;
+            ind11.Location = new Point(1012, 341);
+            ind11.Name = "ind11";
+            ind11.Size = new Size(64, 24);
+            ind11.TabIndex = 7;
+            ind11.Text = "№11";
+            ind11.UseVisualStyleBackColor = true;
+            ind11.CheckedChanged += ind11_CheckedChanged;
             // 
-            // checkBox14
+            // ind15
             // 
-            checkBox14.AutoSize = true;
-            checkBox14.Location = new Point(1012, 461);
-            checkBox14.Name = "checkBox14";
-            checkBox14.Size = new Size(64, 24);
-            checkBox14.TabIndex = 7;
-            checkBox14.Text = "№15";
-            checkBox14.UseVisualStyleBackColor = true;
+            ind15.AutoSize = true;
+            ind15.Location = new Point(1012, 461);
+            ind15.Name = "ind15";
+            ind15.Size = new Size(64, 24);
+            ind15.TabIndex = 7;
+            ind15.Text = "№15";
+            ind15.UseVisualStyleBackColor = true;
+            ind15.CheckedChanged += ind15_CheckedChanged;
             // 
-            // checkBox15
+            // ind12
             // 
-            checkBox15.AutoSize = true;
-            checkBox15.Location = new Point(1012, 371);
-            checkBox15.Name = "checkBox15";
-            checkBox15.Size = new Size(64, 24);
-            checkBox15.TabIndex = 7;
-            checkBox15.Text = "№12";
-            checkBox15.UseVisualStyleBackColor = true;
+            ind12.AutoSize = true;
+            ind12.Location = new Point(1012, 371);
+            ind12.Name = "ind12";
+            ind12.Size = new Size(64, 24);
+            ind12.TabIndex = 7;
+            ind12.Text = "№12";
+            ind12.UseVisualStyleBackColor = true;
+            ind12.CheckedChanged += ind12_CheckedChanged;
             // 
-            // checkBox16
+            // ind16
             // 
-            checkBox16.AutoSize = true;
-            checkBox16.Location = new Point(1012, 491);
-            checkBox16.Name = "checkBox16";
-            checkBox16.Size = new Size(64, 24);
-            checkBox16.TabIndex = 7;
-            checkBox16.Text = "№16";
-            checkBox16.UseVisualStyleBackColor = true;
+            ind16.AutoSize = true;
+            ind16.Location = new Point(1012, 491);
+            ind16.Name = "ind16";
+            ind16.Size = new Size(64, 24);
+            ind16.TabIndex = 7;
+            ind16.Text = "№16";
+            ind16.UseVisualStyleBackColor = true;
+            ind16.CheckedChanged += ind16_CheckedChanged;
             // 
             // GraphicsForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1101, 543);
-            Controls.Add(checkBox16);
-            Controls.Add(checkBox8);
-            Controls.Add(checkBox15);
-            Controls.Add(checkBox4);
-            Controls.Add(checkBox14);
-            Controls.Add(checkBox7);
-            Controls.Add(checkBox13);
-            Controls.Add(checkBox3);
-            Controls.Add(checkBox12);
-            Controls.Add(checkBox6);
-            Controls.Add(checkBox11);
-            Controls.Add(checkBox10);
-            Controls.Add(checkBox2);
-            Controls.Add(checkBox9);
-            Controls.Add(checkBox5);
-            Controls.Add(checkBox1);
+            Controls.Add(ind16);
+            Controls.Add(ind8);
+            Controls.Add(ind12);
+            Controls.Add(ind4);
+            Controls.Add(ind15);
+            Controls.Add(ind7);
+            Controls.Add(ind11);
+            Controls.Add(ind3);
+            Controls.Add(ind14);
+            Controls.Add(ind6);
+            Controls.Add(ind10);
+            Controls.Add(ind13);
+            Controls.Add(ind2);
+            Controls.Add(ind9);
+            Controls.Add(ind5);
+            Controls.Add(ind1);
             Controls.Add(IndicatorsChart);
             Controls.Add(DateTo);
             Controls.Add(DateFrom);
@@ -345,21 +362,21 @@
         private MaskedTextBox DateFrom;
         private MaskedTextBox DateTo;
         private Button ResetDateRange_Button;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
-        private CheckBox checkBox3;
-        private CheckBox checkBox4;
-        private CheckBox checkBox5;
-        private CheckBox checkBox6;
-        private CheckBox checkBox7;
-        private CheckBox checkBox8;
-        private CheckBox checkBox9;
-        private CheckBox checkBox10;
-        private CheckBox checkBox11;
-        private CheckBox checkBox12;
-        private CheckBox checkBox13;
-        private CheckBox checkBox14;
-        private CheckBox checkBox15;
-        private CheckBox checkBox16;
+        private CheckBox ind1;
+        private CheckBox ind2;
+        private CheckBox ind3;
+        private CheckBox ind4;
+        private CheckBox ind5;
+        private CheckBox ind6;
+        private CheckBox ind7;
+        private CheckBox ind8;
+        private CheckBox ind9;
+        private CheckBox ind13;
+        private CheckBox ind10;
+        private CheckBox ind14;
+        private CheckBox ind11;
+        private CheckBox ind15;
+        private CheckBox ind12;
+        private CheckBox ind16;
     }
 }
