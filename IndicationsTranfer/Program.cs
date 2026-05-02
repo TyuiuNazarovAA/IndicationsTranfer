@@ -12,7 +12,7 @@ namespace IndicationsTranfer
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //Application.Run(new MainForm());
-            Application.Run(new GraphicsForm("C:\\Users\\epiccipe\\Desktop\\Files\\1 зима середина.TXT"));
+            Application.Run(new MainForm());
         }
     }
 }

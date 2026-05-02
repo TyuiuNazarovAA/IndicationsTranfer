@@ -46,8 +46,9 @@
             // 
             savePath.Location = new Point(23, 50);
             savePath.Name = "savePath";
-            savePath.Size = new Size(125, 27);
+            savePath.Size = new Size(249, 27);
             savePath.TabIndex = 0;
+            savePath.Text = "C:\\Users\\epiccipe\\Desktop\\FilesTo";
             // 
             // label1
             // 
@@ -64,6 +65,7 @@
             serverIP.Name = "serverIP";
             serverIP.Size = new Size(125, 27);
             serverIP.TabIndex = 0;
+            serverIP.Text = "192.168.0.180";
             // 
             // label2
             // 
@@ -112,7 +114,7 @@
             dataGridViewFiles.AllowUserToResizeRows = false;
             dataGridViewFiles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewFiles.Columns.AddRange(new DataGridViewColumn[] { FileList });
-            dataGridViewFiles.Location = new Point(204, 50);
+            dataGridViewFiles.Location = new Point(326, 50);
             dataGridViewFiles.Name = "dataGridViewFiles";
             dataGridViewFiles.ReadOnly = true;
             dataGridViewFiles.RowHeadersVisible = false;
@@ -131,7 +133,7 @@
             // 
             // GraphMode_Button
             // 
-            GraphMode_Button.Location = new Point(515, 98);
+            GraphMode_Button.Location = new Point(612, 98);
             GraphMode_Button.Name = "GraphMode_Button";
             GraphMode_Button.Size = new Size(116, 52);
             GraphMode_Button.TabIndex = 5;
@@ -142,7 +144,7 @@
             // SelectedFile_Label
             // 
             SelectedFile_Label.AutoSize = true;
-            SelectedFile_Label.Location = new Point(515, 53);
+            SelectedFile_Label.Location = new Point(612, 57);
             SelectedFile_Label.Name = "SelectedFile_Label";
             SelectedFile_Label.Size = new Size(116, 20);
             SelectedFile_Label.TabIndex = 6;
@@ -152,7 +154,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(837, 450);
+            ClientSize = new Size(982, 450);
             Controls.Add(SelectedFile_Label);
             Controls.Add(GraphMode_Button);
             Controls.Add(dataGridViewFiles);
