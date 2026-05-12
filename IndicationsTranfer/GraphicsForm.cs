@@ -14,15 +14,15 @@ namespace IndicationsTranfer
 {
     public partial class GraphicsForm : Form
     {
-        string filePath;
-        (List<DateTime>, List<double>[]) points;
+        List<string> filePath;
+        List<(List<DateTime>, List<double>[])> graphics;
         bool[] indicators;
 
-        public GraphicsForm(string filePath)
+        public GraphicsForm(List<string> filePath)
         {
             InitializeComponent();
             this.filePath = filePath;
-            points = FileParser.Parse(filePath);
+            graphics = FileParser.Parse(filePath);
             indicators = new bool[16];
         }
 
@@ -33,8 +33,8 @@ namespace IndicationsTranfer
 
             if (DateFrom.Text == "  ,  ,       :  :" || DateTo.Text == "  ,  ,       :  :")
             {
-                dateFrom = this.points.Item1[0];
-                dateTo = this.points.Item1[this.points.Item1.Count - 1];
+                dateFrom = this.graphics[0].Item1[0];
+                dateTo = this.graphics[0].Item1[this.graphics[0].Item1.Count - 1];
 
                 DateFrom.Text = $"{dateFrom.Day:D2},{dateFrom.Month:D2},{dateFrom.Year:D4} {dateFrom.Hour:D2}:{dateFrom.Minute:D2}:{dateFrom.Second:D2}";
                 DateTo.Text = $"{dateTo.Day:D2},{dateTo.Month:D2},{dateTo.Year:D4} {dateTo.Hour:D2}:{dateTo.Minute:D2}:{dateTo.Second:D2}";
@@ -46,30 +46,37 @@ namespace IndicationsTranfer
 
             IndicatorsChart.Series.Clear();
 
-            (List<DateTime>, List<double>[]) points = FileParser.Parse(filePath);
+            List<(List<DateTime>, List<double>[])> graphics = FileParser.Parse(filePath);
 
-            for (int i = 0; i < 16; i++)
+            for(int p = 0; p < graphics.Count; p++)
             {
-                if (indicators[i])
-                {
-                    IndicatorsChart.Series.Add(i.ToString());
-                    IndicatorsChart.Series[i.ToString()].ChartType = SeriesChartType.Line;
-                }
-            }
+                var points = graphics[p];
 
-            for (int i = 0; i < 16; i++)
-            {
-                if (indicators[i])
+                for (int i = 0; i < 16; i++)
                 {
-                    for (int j = 0; j < points.Item1.Count; j++)
+                    if (indicators[i])
                     {
-                        DateTime dateTime = points.Item1[j];
+                        string graphName = filePath[p] + " №" + (i + 1).ToString();
 
-                        if (dateFrom <= dateTime && dateTime <= dateTo)
+                        IndicatorsChart.Series.Add(graphName);
+                        IndicatorsChart.Series[graphName].ChartType = SeriesChartType.Line;
+                    }
+                }
+
+                for (int i = 0; i < 16; i++)
+                {
+                    if (indicators[i])
+                    {
+                        for (int j = 0; j < points.Item1.Count; j++)
                         {
-                            double temperatureValue = points.Item2[i][j];
+                            DateTime dateTime = points.Item1[j];
 
-                            IndicatorsChart.Series[i.ToString()].Points.AddXY(dateTime, temperatureValue);
+                            if (dateFrom <= dateTime && dateTime <= dateTo)
+                            {
+                                double temperatureValue = points.Item2[i][j];
+
+                                IndicatorsChart.Series[filePath[p] + " №" + (i + 1).ToString()].Points.AddXY(dateTime, temperatureValue);
+                            }
                         }
                     }
                 }

@@ -121,7 +121,6 @@
             dataGridViewFiles.RowHeadersWidth = 51;
             dataGridViewFiles.Size = new Size(256, 345);
             dataGridViewFiles.TabIndex = 4;
-            dataGridViewFiles.CellClick += dataGridViewFiles_CellClick;
             // 
             // FileList
             // 

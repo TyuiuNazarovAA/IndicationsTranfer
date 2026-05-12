@@ -3,7 +3,6 @@ namespace IndicationsTranfer
     public partial class MainForm : Form
     {
         SimpleFileClient fileClient;
-        string selectedFile;
         public MainForm()
         {
             InitializeComponent();
@@ -63,17 +62,28 @@ namespace IndicationsTranfer
 
         }
 
-        private void dataGridViewFiles_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            selectedFile = ((DataGridView)sender).Rows[e.RowIndex].Cells[0].Value.ToString();
-            SelectedFile_Label.Text = "ֲûבנאם פאיכ: " + selectedFile;
-        }
+        //private void dataGridViewFiles_CellClick(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    selectedFile = ((DataGridView)sender).Rows[e.RowIndex].Cells[0].Value.ToString();
+        //    SelectedFile_Label.Text = "ֲûבנאם פאיכ: " + selectedFile;
+        //}
+
+
 
         private void GraphMode_Button_Click(object sender, EventArgs e)
         {
-            string filePath = Path.Combine(savePath.Text, selectedFile);
+            List<string> selectedFiles = new List<string>();
 
-            GraphicsForm graphicsForm = new GraphicsForm(filePath);
+            foreach (DataGridViewCell cell in dataGridViewFiles.SelectedCells)
+            {
+                selectedFiles.Add(cell.Value.ToString());
+            }
+
+            string filePath = savePath.Text;
+
+            List<string> filesPath = selectedFiles.Select(file => Path.Combine(filePath, file)).ToList();
+
+            GraphicsForm graphicsForm = new GraphicsForm(filesPath);
 
             graphicsForm.ShowDialog();
         }
