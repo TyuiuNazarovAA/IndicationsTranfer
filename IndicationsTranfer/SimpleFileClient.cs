@@ -138,13 +138,13 @@ public class SimpleFileClient
                 // Если файл существует, добавляем номер
                 int counter = 1;
                 string originalPath = savePath;
-                while (File.Exists(savePath))
-                {
-                    string nameWithoutExt = Path.GetFileNameWithoutExtension(originalPath);
-                    string ext = Path.GetExtension(originalPath);
-                    savePath = Path.Combine(saveFolder, $"{nameWithoutExt}_{counter}{ext}");
-                    counter++;
-                }
+                //while (File.Exists(savePath))
+                //{
+                //    string nameWithoutExt = Path.GetFileNameWithoutExtension(originalPath);
+                //    string ext = Path.GetExtension(originalPath);
+                //    savePath = Path.Combine(saveFolder, $"{nameWithoutExt}_{counter}{ext}");
+                //    counter++;
+                //}
 
                 File.WriteAllBytes(savePath, fileData);
                 Console.WriteLine($"Скачан: {fileName} -> {Path.GetFileName(savePath)}");

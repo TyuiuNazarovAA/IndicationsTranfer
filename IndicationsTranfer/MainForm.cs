@@ -62,14 +62,6 @@ namespace IndicationsTranfer
 
         }
 
-        //private void dataGridViewFiles_CellClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    selectedFile = ((DataGridView)sender).Rows[e.RowIndex].Cells[0].Value.ToString();
-        //    SelectedFile_Label.Text = "Выбран файл: " + selectedFile;
-        //}
-
-
-
         private void GraphMode_Button_Click(object sender, EventArgs e)
         {
             List<string> selectedFiles = new List<string>();
@@ -83,9 +75,16 @@ namespace IndicationsTranfer
 
             List<string> filesPath = selectedFiles.Select(file => Path.Combine(filePath, file)).ToList();
 
-            GraphicsForm graphicsForm = new GraphicsForm(filesPath);
+            if (filesPath.All(file => File.Exists(file)))
+            {
+                GraphicsForm graphicsForm = new GraphicsForm(filesPath);
 
-            graphicsForm.ShowDialog();
+                graphicsForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Сначала необходимо получите файлы с сервера!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

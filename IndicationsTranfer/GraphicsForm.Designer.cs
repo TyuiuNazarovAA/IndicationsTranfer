@@ -57,6 +57,7 @@
             ind16 = new CheckBox();
             panelforDatchichk = new Panel();
             panelXZ = new Panel();
+            IsWinterTime = new CheckBox();
             splittertwo = new Splitter();
             panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)IndicatorsChart).BeginInit();
@@ -125,7 +126,7 @@
             // DateFrom
             // 
             DateFrom.Location = new Point(67, 93);
-            DateFrom.Mask = "00.00.0000 00:00:00";
+            DateFrom.Mask = "00.00 00:00:00";
             DateFrom.Name = "DateFrom";
             DateFrom.Size = new Size(185, 27);
             DateFrom.TabIndex = 6;
@@ -133,7 +134,7 @@
             // DateTo
             // 
             DateTo.Location = new Point(302, 93);
-            DateTo.Mask = "00.00.0000 00:00:00";
+            DateTo.Mask = "00.00 00:00:00";
             DateTo.Name = "DateTo";
             DateTo.Size = new Size(173, 27);
             DateTo.TabIndex = 6;
@@ -352,6 +353,7 @@
             // 
             // panelXZ
             // 
+            panelXZ.Controls.Add(IsWinterTime);
             panelXZ.Controls.Add(splittertwo);
             panelXZ.Controls.Add(GraphicsBuild_Button);
             panelXZ.Controls.Add(ResetDateRange_Button);
@@ -365,6 +367,16 @@
             panelXZ.Name = "panelXZ";
             panelXZ.Size = new Size(1368, 143);
             panelXZ.TabIndex = 9;
+            // 
+            // IsWinterTime
+            // 
+            IsWinterTime.AutoSize = true;
+            IsWinterTime.Location = new Point(745, 96);
+            IsWinterTime.Name = "IsWinterTime";
+            IsWinterTime.Size = new Size(142, 24);
+            IsWinterTime.TabIndex = 8;
+            IsWinterTime.Text = "Зимний период";
+            IsWinterTime.UseVisualStyleBackColor = true;
             // 
             // splittertwo
             // 
@@ -437,5 +449,6 @@
         private Panel panelXZ;
         private Panel panel1;
         private Splitter splittertwo;
+        private CheckBox IsWinterTime;
     }
 }

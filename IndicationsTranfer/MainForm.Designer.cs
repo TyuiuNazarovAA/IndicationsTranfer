@@ -48,7 +48,6 @@
             savePath.Name = "savePath";
             savePath.Size = new Size(249, 27);
             savePath.TabIndex = 0;
-            savePath.Text = "C:\\Users\\epiccipe\\Desktop\\FilesTo";
             // 
             // label1
             // 
@@ -65,7 +64,6 @@
             serverIP.Name = "serverIP";
             serverIP.Size = new Size(125, 27);
             serverIP.TabIndex = 0;
-            serverIP.Text = "192.168.0.180";
             // 
             // label2
             // 

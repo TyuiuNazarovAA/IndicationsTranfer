@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace IndicationsTranfer
 {
@@ -16,14 +15,49 @@ namespace IndicationsTranfer
     {
         List<string> filePath;
         List<(List<DateTime>, List<double>[])> graphics;
+
+        List<(List<DateTime>, List<double>[])> summerGraphics;
+        List<(List<DateTime>, List<double>[])> winterGraphics;
+
+        DateTime summerFrom;
+        DateTime summerTo;
+        DateTime winterFrom;
+        DateTime winterTo;
+
         bool[] indicators;
+        int globalYear;
 
         public GraphicsForm(List<string> filePath)
         {
             InitializeComponent();
             this.filePath = filePath;
-            graphics = FileParser.Parse(filePath);
+            
             indicators = new bool[16];
+
+            RefreshData();
+        }
+
+        private void RefreshData()
+        {
+            graphics = FileParser.Parse(filePath);
+
+            globalYear = graphics.SelectMany(g => g.Item1).Max().Year;
+
+            summerFrom = new DateTime(globalYear, 5, 1).AddMonths(1).AddDays(-1);
+            summerTo = new DateTime(globalYear, 9, 1);
+
+            winterFrom = new DateTime(globalYear - 1, 11, 1).AddMonths(1).AddDays(-1);
+            winterTo = new DateTime(globalYear, 3, 1);
+
+            summerGraphics = (from g in graphics
+                                let d = g.Item1[0].AddYears(globalYear - g.Item1[0].Year)
+                                where d >= summerFrom && d <= summerTo
+                                select g).ToList();
+
+            winterGraphics = (from g in graphics
+                              let d = g.Item1[0].AddYears(g.Item1[0].Month <= 3 ? globalYear - g.Item1[0].Year + 1 : globalYear - g.Item1[0].Year)
+                              where d >= winterFrom && d <= winterTo.AddYears(1)
+                              select g).ToList();
         }
 
         private void GraphicsBuild_Button_Click(object sender, EventArgs e)
@@ -31,13 +65,26 @@ namespace IndicationsTranfer
             DateTime dateFrom;
             DateTime dateTo;
 
-            if (DateFrom.Text == "  ,  ,       :  :" || DateTo.Text == "  ,  ,       :  :")
+            if (IsWinterTime.Checked && winterGraphics.Count() == 0)
             {
-                dateFrom = this.graphics[0].Item1[0];
-                dateTo = this.graphics[0].Item1[this.graphics[0].Item1.Count - 1];
+                MessageBox.Show("Файлы с зимним периодом не были выбраны", "Отсутствие зимнего периода", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
-                DateFrom.Text = $"{dateFrom.Day:D2},{dateFrom.Month:D2},{dateFrom.Year:D4} {dateFrom.Hour:D2}:{dateFrom.Minute:D2}:{dateFrom.Second:D2}";
-                DateTo.Text = $"{dateTo.Day:D2},{dateTo.Month:D2},{dateTo.Year:D4} {dateTo.Hour:D2}:{dateTo.Minute:D2}:{dateTo.Second:D2}";
+            if (!IsWinterTime.Checked && summerGraphics.Count() == 0)
+            {
+                MessageBox.Show("Файлы с летним периодом не были выбраны", "Отсутствие летнего периода", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (DateFrom.Text == "  ,     :  :" || DateTo.Text == "  ,     :  :")
+            {
+
+                (dateFrom, dateTo) = GetDateTimes();
+
+                DateFrom.Text = $"{dateFrom.Day:D2},{dateFrom.Month:D2} {dateFrom.Hour:D2}:{dateFrom.Minute:D2}:{dateFrom.Second:D2}";
+
+                DateTo.Text = $"{dateTo.Day:D2},{dateTo.Month:D2} {dateTo.Hour:D2}:{dateTo.Minute:D2}:{dateTo.Second:D2}";
             }
             else
             {
@@ -46,43 +93,125 @@ namespace IndicationsTranfer
 
             IndicatorsChart.Series.Clear();
 
-            List<(List<DateTime>, List<double>[])> graphics = FileParser.Parse(filePath);
+            RefreshData();
 
-            for(int p = 0; p < graphics.Count; p++)
+            if (IsWinterTime.Checked)
             {
-                var points = graphics[p];
-
-                for (int i = 0; i < 16; i++)
+                for (int p = 0; p < winterGraphics.Count; p++)
                 {
-                    if (indicators[i])
-                    {
-                        string graphName = filePath[p] + " №" + (i + 1).ToString();
+                    var points = winterGraphics[p];
 
-                        IndicatorsChart.Series.Add(graphName);
-                        IndicatorsChart.Series[graphName].ChartType = SeriesChartType.Line;
-                    }
-                }
+                    int currentYear = points.Item1[0].Year;
 
-                for (int i = 0; i < 16; i++)
-                {
-                    if (indicators[i])
+                    for (int i = 0; i < 16; i++)
                     {
-                        for (int j = 0; j < points.Item1.Count; j++)
+                        if (indicators[i])
                         {
-                            DateTime dateTime = points.Item1[j];
+                            string graphName;
 
-                            if (dateFrom <= dateTime && dateTime <= dateTo)
+                            if (points.Item1[0].Month >= 11 && points.Item1[points.Item1.Count - 1].Month <= 3)
+                                graphName = $"{currentYear}-{currentYear + 1} год Датчик №{i + 1} Файл №{p + 1}";
+                            else
+                                graphName = $"{currentYear} год Датчик №{i + 1} Файл №{p + 1}";
+
+                            IndicatorsChart.Series.Add(graphName);
+                            IndicatorsChart.Series[graphName].ChartType = SeriesChartType.Line;
+
+                            for (int dateIndex = 0; dateIndex < points.Item1.Count; dateIndex++)
                             {
-                                double temperatureValue = points.Item2[i][j];
+                                DateTime dateTime = points.Item1[dateIndex];
 
-                                IndicatorsChart.Series[filePath[p] + " №" + (i + 1).ToString()].Points.AddXY(dateTime, temperatureValue);
+                                DateTime dateTimeEdited;
+                                if (winterGraphics.Count > 1 && winterGraphics.SelectMany(points => points.Item1).Any(d => d.Month >= 11)
+                                    && winterGraphics.SelectMany(points => points.Item1).Any(d => d.Month <= 3))
+                                    dateTimeEdited = dateTime.AddYears(dateTime.Month <= 3 ? globalYear - dateTime.Year + 1 : globalYear - dateTime.Year);
+                                else
+                                    dateTimeEdited = dateTime.AddYears(globalYear - dateTime.Year);
+
+                                if (dateTimeEdited >= dateFrom && dateTimeEdited <= dateTo)
+                                {
+                                    double temperatureValue = points.Item2[i][dateIndex];
+
+                                    IndicatorsChart.Series[graphName].Points.AddXY(dateTimeEdited, temperatureValue);
+                                }
                             }
                         }
                     }
                 }
             }
-        }
+            else
+            {
+                for (int p = 0; p < summerGraphics.Count; p++)
+                {
+                    var points = summerGraphics[p];
 
+                    int currentYear = points.Item1[0].Year;
+
+                    for (int i = 0; i < 16; i++)
+                    {
+                        if (indicators[i])
+                        {
+                            string graphName = $"{currentYear} год Датчик №{i + 1} Файл №{p + 1}";
+
+                            IndicatorsChart.Series.Add(graphName);
+                            IndicatorsChart.Series[graphName].ChartType = SeriesChartType.Line;
+
+                            for (int dateIndex = 0; dateIndex < points.Item1.Count; dateIndex++)
+                            {
+                                DateTime dateTime = points.Item1[dateIndex];
+
+                                DateTime dateTimeEdited = dateTime.AddYears(globalYear - dateTime.Year);
+
+                                if (dateTimeEdited >= dateFrom && dateTimeEdited <= dateTo)
+                                {
+                                    double temperatureValue = points.Item2[i][dateIndex];
+
+                                    IndicatorsChart.Series[graphName].Points.AddXY(dateTimeEdited, temperatureValue);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+             
+        }
+        public (DateTime, DateTime) GetDateTimes()
+        {
+            if (IsWinterTime.Checked)
+            {
+                DateTime from;
+                DateTime to;
+
+                if (winterGraphics.SelectMany(d => d.Item1).Where(dt => dt.Month >= 11).Count() != 0 &&
+                    winterGraphics.SelectMany(d => d.Item1).Where(dt => dt.Month <= 3).Count() != 0)
+                {
+                    from = winterGraphics.SelectMany(d => d.Item1.Where(d => d.Month >= 11).Select(dt => dt.AddYears(globalYear - dt.Year))).Min();
+                    to = winterGraphics.SelectMany(d => d.Item1.Where(d => d.Month <= 3).Select(dt => dt.AddYears(globalYear - dt.Year))).Max().AddYears(1);
+                }
+                else
+                {
+                    from = winterGraphics.SelectMany(d => d.Item1.Select(dt => dt.AddYears(globalYear - dt.Year))).Min();
+                    to = winterGraphics.SelectMany(d => d.Item1.Select(dt => dt.AddYears(globalYear - dt.Year))).Max();
+                }
+
+                return (from, to);
+            }
+            else
+            {
+                DateTime from = summerGraphics.SelectMany(d => d.Item1).Min();
+                DateTime to = summerGraphics.SelectMany(d => d.Item1).Max();
+
+                return (from, to);
+            }
+        }
+        private (DateTime, DateTime) GetMinAndMaxDates()
+        {
+            DateTime minDate = graphics.Select(file => file.Item1[0]).Min();
+            DateTime maxDate = graphics.Select(file => file.Item1[file.Item1.Count - 1]).Max();
+
+            return (minDate, maxDate);
+        }
         public (DateTime, DateTime) CalcDate()
         {
             string[] dateFrom = DateFrom.Text.Split(" ")[0].Split(",");
@@ -91,7 +220,6 @@ namespace IndicationsTranfer
             string[] timeFrom = DateFrom.Text.Split(" ")[1].Split(":");
             string[] timeTo = DateTo.Text.Split(" ")[1].Split(":");
 
-            int yearFrom = Convert.ToInt32(dateFrom[2]);
             int monthFrom = Convert.ToInt32(dateFrom[1]);
             int dayFrom = Convert.ToInt32(dateFrom[0]);
 
@@ -100,7 +228,6 @@ namespace IndicationsTranfer
             int secondFrom = Convert.ToInt32(timeFrom[2]);
 
 
-            int yearTo = Convert.ToInt32(dateTo[2]);
             int monthTo = Convert.ToInt32(dateTo[1]);
             int dayTo = Convert.ToInt32(dateTo[0]);
 
@@ -108,16 +235,27 @@ namespace IndicationsTranfer
             int minuteTo = Convert.ToInt32(timeTo[1]);
             int secondTo = Convert.ToInt32(timeTo[0]);
 
-            DateTime from = new DateTime(yearFrom, monthFrom, dayFrom, hourFrom, minuteFrom, secondFrom);
-            DateTime to = new DateTime(yearTo, monthTo, dayTo, hourTo, minuteTo, secondTo);
+            DateTime from;
+            DateTime to;
+
+            if (IsWinterTime.Checked && monthFrom > monthTo)
+            {
+                from = new DateTime(globalYear, monthFrom, dayFrom, hourFrom, minuteFrom, secondFrom);
+                to = new DateTime(globalYear + 1, monthTo, dayTo, hourTo, minuteTo, secondTo);
+            }
+            else
+            {
+                from = new DateTime(globalYear, monthFrom, dayFrom, hourFrom, minuteFrom, secondFrom);
+                to = new DateTime(globalYear, monthTo, dayTo, hourTo, minuteTo, secondTo);
+            }
 
             return (from, to);
         }
 
         private void ResetDateRange_Button_Click(object sender, EventArgs e)
         {
-            DateFrom.Text = "  ,  ,       :  :";
-            DateTo.Text = "  ,  ,       :  :";
+            DateFrom.Text = "  ,     :  :";
+            DateTo.Text = "  ,     :  :";
         }
 
         private void ind1_CheckedChanged(object sender, EventArgs e)

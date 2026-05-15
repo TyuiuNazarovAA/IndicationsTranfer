@@ -29,12 +29,14 @@ namespace IndicationsTranfer
                 int month = 0;
                 int day = 0;
 
-                using (StreamReader sr = new StreamReader(path))
+                using (StreamReader sr = new StreamReader(path, Encoding.UTF8))
                 {
+                    List<string> output = new();
                     string line = "";
                     int i = 1;
                     while ((line = sr.ReadLine()) != null)
                     {
+                        output.Add(line);
                         if (i == 3)
                         {
                             string dateOnly = line.Substring(41, 10);
